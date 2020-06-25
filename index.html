@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="chart" style="width: 600px;height: 600px;"></div>
+<script src="echarts.js"></script>
+<script src="echarts-wordcloud.js"></script>
+<script src="data.js"></script>
+<script>
+  const chart = echarts.init(document.getElementById('chart'));
+
+  const data = originData.map(val => ({
+    ...val,
+    textStyle: {
+      normal: {
+        color: randomColor()
+      }
+    }
+  }));
+
+  chart.setOption({
+    series: [{
+      type: 'wordCloud',
+      shape: 'circle',
+      left: 'center',
+      top: 'center',
+      width: '70%',
+      height: '80%',
+      right: null,
+      bottom: null,
+      sizeRange: [12, 60],
+      rotationRange: [-90, 90],
+      rotationStep: 45,
+      gridSize: 8,
+      drawOutOfBound: false,
+      textStyle: {
+        normal: {
+          fontFamily: 'sans-serif',
+          fontWeight: 'normal'
+        },
+        emphasis: {
+          shadowBlur: 10,
+          shadowColor: '#333'
+        }
+      },
+      data
+    }]
+  });
+
+  function randomColor() {
+    return 'rgb(' + [
+      Math.round(Math.random() * 160),
+      Math.round(Math.random() * 160),
+      Math.round(Math.random() * 160)
+    ].join(',') + ')';
+  }
+</script>
+</body>
